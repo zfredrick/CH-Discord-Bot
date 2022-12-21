@@ -54,11 +54,26 @@ let edlEmbed = null;
 let heliEmbed = null;
 let egEmebed = null;
 
-const createEmbeds = (channel) => {
-    channel.send({ embeds: [defaultDlEmbed, defaultEdlEmbed, defaultHeliEmbed, defaultEgEmbed] })
+const createEmbeds = async (channel) => {
+	await channel.messages.fetch({ limit: 1 }).then(messages => {
+		if (messages.size > 0) {
+			messages.forEach(msg => {
+				embedMessage = msg;
+				dlEmbed = msg.embeds[0];
+				edlEmbed = msg.embeds[1];
+				heliEmbed = msg.embeds[2];
+				egEmebed = msg.embeds[3];
+			});
+
+			channel.send({ embeds: [dlEmbed, edlEmbed, heliEmbed, egEmebed] })
+		}
+		else {
+			channel.send({ embeds: [defaultDlEmbed, defaultEdlEmbed, defaultHeliEmbed, defaultEgEmbed] })
+		}
+	});
 };
 
-const editEmbeds = async (channel, boss_name, new_time) => {
+const editEmbeds = async (channel, bossName, newTime) => {
 	// Fetch and set the embeds if they are currently null
 	await channel.messages.fetch({ limit: 1 }).then(messages => {
 
@@ -71,9 +86,9 @@ const editEmbeds = async (channel, boss_name, new_time) => {
 		});
 
 		embedMessage.embeds.forEach(embed => {
-			let boss_field = embed.fields.find(field => field.name === `${boss_name}`)
-			if (boss_field) {
-				boss_field.value = `<t:${new_time}:R>`
+			let bossField = embed.fields.find(field => field.name === `${bossName}`)
+			if (bossField) {
+				bossField.value = `<t:${newTime}:R>`
 			}
 		})
 		embedMessage.edit({embeds: [dlEmbed, edlEmbed, heliEmbed, egEmebed]})

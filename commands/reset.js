@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const { editEmbeds } = require('../controllers/manageEmbed.js');
 const { createTimer } = require('../controllers/manageAlerts.js');
-const { timerChannel, alertChannel } = require('../config.json');
+const { timerChannel, alertChannel, resetChannel } = require('../config.json');
 const bosses  = require('../bosses.json');
 
 module.exports = {
@@ -38,14 +38,20 @@ module.exports = {
                     { name: 'Dino', value: 'Dino' },
                 )),
 	async execute(interaction) {
-        let bossName = interaction.options.getString('boss');
+        if (interaction.channelId == resetChannel) {
+            let bossName = interaction.options.getString('boss');
 
-        let unixBossTime = Math.floor(Date.now() / 1000) + (bosses[bossName] * 60);
+            let unixBossTime = Math.floor(Date.now() / 1000) + (bosses[bossName] * 60);
 
-        editEmbeds(interaction.client.channels.cache.get(timerChannel), bossName, unixBossTime);
-        createTimer(interaction.client.channels.cache.get(alertChannel), bossName, bosses[bossName] * (60 * 1000));
+            editEmbeds(interaction.client.channels.cache.get(timerChannel), bossName, unixBossTime);
+            createTimer(interaction.client.channels.cache.get(alertChannel), bossName, bosses[bossName] * (60 * 1000));
 
-		await interaction.reply(`${bossName} timer reset!`);
-        console.log(`CommandLogger: ${interaction.commandName}: ${bossName}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);
-	},
+            await interaction.reply(`${bossName} timer reset!`);
+            console.log(`CommandLogger: ${interaction.commandName}: ${bossName}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);
+        }
+        else {
+            await interaction.deferReply({ ephemeral: true })
+            await interaction.deleteReply();
+        }
+	}
 };
