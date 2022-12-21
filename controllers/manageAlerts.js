@@ -6,12 +6,16 @@ const createTimer = (channel, boss_name, boss_time) => {
         clearTimeout(timer_handles[boss_name])
     }
 
-    if (boss_time >= (3 * 60 * 1000)) {
+    if (boss_time) {
         timer_handles[boss_name] = setTimeout(function() {
             channel.send({
-                content: `${boss_name} due in 3 minutes!`,
-            })}
-            , boss_time - (3 * 60 * 1000));
+                content: `${boss_name} is due!`,
+            })
+
+            let dateTime = new Date(Date.now());
+            console.log(`AlertLogger: ${boss_name} due alert sent in ${channel} at ${dateTime.toString()}`);
+        }
+            , boss_time);
     }
 }
 

@@ -80,8 +80,4 @@ const editEmbeds = async (channel, boss_name, new_time) => {
 	})
 }
 
-const readEmbedsRecreateTimers = () => {
-	
-}
-
-module.exports = {createEmbeds, editEmbeds, readEmbedsRecreateTimers};
+module.exports = { createEmbeds, editEmbeds };

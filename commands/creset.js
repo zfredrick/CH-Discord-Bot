@@ -52,6 +52,6 @@ module.exports = {
         createTimer(interaction.client.channels.cache.get(alertChannel), bossName, customTime * (60 * 1000));
 
 		await interaction.reply(`${bossName} timer reset!`);
-        console.log(`CommandLogger: ${interaction.commandName}: ${bossName}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);
+        console.log(`CommandLogger: ${interaction.commandName}: ${bossName} ${customTime}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);
 	},
 };
