@@ -41,10 +41,10 @@ module.exports = {
         if (interaction.channelId == resetChannel) {
             let bossName = interaction.options.getString('boss');
 
-            let unixBossTime = Math.floor(Date.now() / 1000) + (bosses[bossName] * 60);
+            let unixBossTime = Math.floor(Date.now() / 1000) + (bosses[bossName][0] * 60);
 
             editEmbeds(interaction.client.channels.cache.get(timerChannel), bossName, unixBossTime);
-            createTimer(interaction.client.channels.cache.get(alertChannel), bossName, bosses[bossName] * (60 * 1000));
+            createTimer(interaction.client.channels.cache.get(alertChannel), bossName, bosses[bossName][0] * (60 * 1000));
 
             await interaction.reply(`${bossName} timer reset!`);
             console.log(`CommandLogger: ${interaction.commandName}: ${bossName}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);

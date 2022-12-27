@@ -1,17 +1,19 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { createEmbeds } = require('../controllers/manageEmbed.js');
+const { clearEmbeds } = require('../controllers/manageEmbed.js');
+const { clearTimers } =  require('../controllers/manageAlerts.js');
 const { timerChannel } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('create-embeds')
-		.setDescription('creates initial embeds for timers')
+		.setName('clear-timers')
+		.setDescription('clears all timers')
 		.setDefaultMemberPermissions(0),
 	async execute(interaction) {
 		if (interaction.channelId == timerChannel) {
-			await createEmbeds(interaction.client.channels.cache.get(timerChannel));
+			await clearEmbeds(interaction.client.channels.cache.get(timerChannel));
+            clearTimers();
 
-			await interaction.reply('embeds created');
+			await interaction.reply('timers cleared');
 			await interaction.deleteReply();
 			console.log(`CommandLogger: ${interaction.commandName}, run by ${interaction.user.username} in ${interaction.channelId} at ${interaction.createdAt}`);
 		}

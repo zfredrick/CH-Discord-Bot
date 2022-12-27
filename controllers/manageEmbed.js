@@ -95,4 +95,25 @@ const editEmbeds = async (channel, bossName, newTime) => {
 	})
 }
 
-module.exports = { createEmbeds, editEmbeds };
+const clearEmbeds = async (channel) => {
+	await channel.messages.fetch({ limit: 1 }).then(messages => {
+
+		messages.forEach(msg => {
+			embedMessage = msg;
+			dlEmbed = msg.embeds[0];
+			edlEmbed = msg.embeds[1];
+			heliEmbed = msg.embeds[2];
+			egEmebed = msg.embeds[3];
+		});
+
+		embedMessage.embeds.forEach(embed => {
+			embed.fields.forEach(field => {
+				field.value = 'unset';
+			})
+		});
+
+		embedMessage.edit({embeds: [dlEmbed, edlEmbed, heliEmbed, egEmebed]})
+	})
+}
+
+module.exports = { createEmbeds, editEmbeds, clearEmbeds };

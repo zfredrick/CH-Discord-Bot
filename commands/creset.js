@@ -2,7 +2,6 @@ const { SlashCommandBuilder } = require('discord.js');
 const { editEmbeds } = require('../controllers/manageEmbed.js');
 const { createTimer } = require('../controllers/manageAlerts.js');
 const { timerChannel, alertChannel, resetChannel } = require('../config.json');
-const bosses  = require('../bosses.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
