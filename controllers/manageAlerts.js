@@ -40,4 +40,15 @@ const clearTimers = () => {
     Object.values(timer_handles).forEach(timer => clearTimeout(timer));
 }
 
-module.exports = { createTimer, clearTimers };
+const clearTimer = (boss_name) => {
+    let bossAlertTimes = bosses[boss_name].slice(1);
+
+    bossAlertTimes.forEach(timer => {
+        let timerName = boss_name + timer;
+        if (Object.keys(timer_handles).includes(timerName)) {
+            clearTimeout(timer_handles[timerName])
+        }
+    });
+}
+
+module.exports = { createTimer, clearTimers, clearTimer };

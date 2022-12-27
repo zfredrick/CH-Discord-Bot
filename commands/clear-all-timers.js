@@ -5,7 +5,7 @@ const { timerChannel } = require('../config.json');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('clear-timers')
+		.setName('clear-all-timers')
 		.setDescription('clears all timers')
 		.setDefaultMemberPermissions(0),
 	async execute(interaction) {

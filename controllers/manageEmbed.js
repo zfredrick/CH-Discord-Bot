@@ -88,7 +88,7 @@ const editEmbeds = async (channel, bossName, newTime) => {
 		embedMessage.embeds.forEach(embed => {
 			let bossField = embed.fields.find(field => field.name === `${bossName}`)
 			if (bossField) {
-				bossField.value = `<t:${newTime}:R>`
+				bossField.value = `<t:${newTime}:R>`;
 			}
 		})
 		embedMessage.edit({embeds: [dlEmbed, edlEmbed, heliEmbed, egEmebed]})
@@ -116,4 +116,25 @@ const clearEmbeds = async (channel) => {
 	})
 }
 
-module.exports = { createEmbeds, editEmbeds, clearEmbeds };
+const clearSingleEmbed = async (channel, bossName) => {
+	await channel.messages.fetch({ limit: 1 }).then(messages => {
+
+		messages.forEach(msg => {
+			embedMessage = msg;
+			dlEmbed = msg.embeds[0];
+			edlEmbed = msg.embeds[1];
+			heliEmbed = msg.embeds[2];
+			egEmebed = msg.embeds[3];
+		});
+
+		embedMessage.embeds.forEach(embed => {
+			let bossField = embed.fields.find(field => field.name === `${bossName}`)
+			if (bossField) {
+				bossField.value = `unset`;
+			}
+		})
+		embedMessage.edit({embeds: [dlEmbed, edlEmbed, heliEmbed, egEmebed]})
+	})
+}
+
+module.exports = { createEmbeds, editEmbeds, clearEmbeds, clearSingleEmbed };
