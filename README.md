@@ -6,6 +6,7 @@ A discord timer bot that allows the managment of boss timers for the game Celtic
 
 The bot resets specific timers for each boss based on the command sent to it and automatically edits embeds to allow users to see how much time is left on each timer. Based on customizable settings, the bot will send notifications when specific timers are about to hit 0 (these can be set to any times such as 3min before).
 
+To use, create bot through discord dev dashboard and at it to the server with all permission granted within the channels it should be used in. Next, make a copy of config.json and fill it in with your servers details then run 'deploy commands' to deploy the commands to the discord server (run this whenever a command is updated).
 
 ------------
 
