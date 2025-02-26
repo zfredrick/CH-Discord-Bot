@@ -1,8 +1,8 @@
 {
-    "token": "",
-    "guildId": "",
-    "clientId": "",
-    "resetChannel": "",
-    "alertChannel": "",
-    "timerChannel": ""
+    "token": "Arawn",
+    "guildId": "Arawn",
+    "clientId": "Arawn",
+    "resetChannel": "timer",
+    "alertChannel": "timer",
+    "timerChannel": "timer"
 }
